@@ -1,0 +1,50 @@
+# Gradle files
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# IDE related files
+.idea/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+/out/
+
+# Local configuration file
+local.properties
+
+# Build artifacts
+*.apk
+*.aar
+*.ap_
+*.dex
+*.class
+*.jar
+*.so
+
+# Test reports
+test-results/
+
+# Android Studio
+.android/
+
+# Kotlin
+*.kt.bak
+
+# MLC LLM models (large files)
+app/src/main/assets/models/
+llm_models/
+*.bin
+*.safetensors
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+
+# Environment variables
+.env
+.env.local
