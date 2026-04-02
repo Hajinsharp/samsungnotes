@@ -1,0 +1,61 @@
+package com.example.samsungnotes.model
+
+import android.graphics.Bitmap
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.time.LocalDateTime
+
+@Entity(tableName = "notes")
+data class Note(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val title: String,
+    val content: String,
+    val sourceApp: String = "Samsung Notes",
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now()
+)
+
+data class LLMResponse(
+    val noteId: Long,
+    val prompt: String,
+    val response: String,
+    val model: String = "Mistral-7B",
+    val processingTimeMs: Long,
+    val timestamp: LocalDateTime = LocalDateTime.now()
+)
+
+data class UIState(
+    val isLoading: Boolean = false,
+    val noteContent: String = "",
+    val llmResponse: String = "",
+    val selectedModel: String = "Gemma 2B",
+    val error: String? = null,
+    val isModelLoaded: Boolean = false,
+    val processingProgress: Int = 0,
+    val ocrStatus: String = "",
+    val modelStatus: ModelStatus = ModelStatus.NOT_DOWNLOADED,
+    val needsStoragePermission: Boolean = false
+)
+
+enum class ModelStatus {
+    NOT_DOWNLOADED,
+    COPYING,
+    LOADING,
+    READY,
+    ERROR
+}
+
+data class ModelInfo(
+    val name: String,
+    val modelId: String,
+    val size: String,
+    val parameters: String,
+    val isDownloaded: Boolean = false,
+    val downloadProgress: Int = 0
+)
+
+sealed class NoteCapture {
+    data class TextCapture(val text: String) : NoteCapture()
+    data class ImageCapture(val bitmap: Bitmap) : NoteCapture()
+}
